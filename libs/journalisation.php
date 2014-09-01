@@ -6,12 +6,12 @@ class journal {
 	function journal($nom_journal) {
 		$this->mon_journal = $nom_journal;
 	}
-	function enregistre ($message){
+	function enregistre ($message,$glu=" "){
 		if (!$this->mon_journal) return (true);
-		if (!strlen($message)) return (true); 
+		if (!strlen($message)) return (true);
 //		if (! $this->p_journal) ...
-		$son_IP = $_SERVER['REMOTE_ADDR'];		
-		$message = '['.date('Y/m/d H:i:s')."] $son_IP \t".$message."\n";
+		$son_IP = $_SERVER['REMOTE_ADDR'];
+		$message = '['.date('Y/m/d H:i:s')."]".$glu.$son_IP.$glu.$message."\n";
 		$l = file_put_contents($this->mon_journal, $message, FILE_APPEND | LOCK_EX);
 
 		if ($l === false || $l<strlen($message)) return(false);
